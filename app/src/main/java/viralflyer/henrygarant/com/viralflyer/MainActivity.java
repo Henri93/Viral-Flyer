@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -21,14 +22,13 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         //Check if the user has NFC
-         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         //Inform the user of their NFC situation
-        if(nfcAdapter != null && nfcAdapter.isEnabled()){
+        if (nfcAdapter != null && nfcAdapter.isEnabled()) {
             Toast.makeText(this, "NFC enabled", Toast.LENGTH_SHORT).show();
-        }
-        else if(nfcAdapter != null){
+        } else if (nfcAdapter != null) {
             Toast.makeText(this, "Please enable NFC", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             Toast.makeText(this, "NFC failed", Toast.LENGTH_SHORT).show();
         }
     }
@@ -75,14 +75,25 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void enableForegroundDispatch(){
+    @Override
+    protected void onNewIntent(Intent intent) {
+        if (intent.hasExtra(nfcAdapter.EXTRA_TAG)) {
+            Toast.makeText(this, "NFC intent received", Toast.LENGTH_SHORT).show();
+            Tag tag = intent.getParcelableExtra(nfcAdapter.EXTRA_TAG);
+            //NdefMessage ndefMessage = createNdefMessage("My NFC message");
+            //writeNdefMessage(tag, ndefMessage);
+        }
+        super.onNewIntent(intent);
+    }
+
+    public void enableForegroundDispatch() {
         Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         IntentFilter[] intentFilters = new IntentFilter[]{};
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, null);
     }
 
-    public void disableForegroundDispatch(){
+    public void disableForegroundDispatch() {
         nfcAdapter.disableForegroundDispatch(this);
     }
 }
