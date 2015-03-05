@@ -149,7 +149,7 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public NdefMessage createNdefMessage(String content){
+    public NdefMessage createNdefMessage(String content) {
         NdefRecord ndefRecord = createTextRecord(content, Locale.ENGLISH, true);
         NdefMessage ndefMessage = new NdefMessage(new NdefRecord[]{ndefRecord});
         return ndefMessage;
