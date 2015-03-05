@@ -62,4 +62,8 @@ public class MainActivity extends ActionBarActivity {
         IntentFilter[] intentFilters = new IntentFilter[]{};
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, null);
     }
+
+    public void disableForegroundDispatch(){
+        nfcAdapter.disableForegroundDispatch(this);
+    }
 }
