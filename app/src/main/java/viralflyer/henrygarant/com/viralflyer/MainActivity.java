@@ -1,5 +1,8 @@
 package viralflyer.henrygarant.com.viralflyer;
 
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -10,13 +13,15 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
+    NfcAdapter nfcAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //Check if the user has NFC
-        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         //Inform the user of their NFC situation
         if(nfcAdapter != null && nfcAdapter.isEnabled()){
             Toast.makeText(this, "NFC enabled", Toast.LENGTH_SHORT).show();
@@ -49,5 +54,12 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void enableForegroundDispatch(){
+        Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        IntentFilter[] intentFilters = new IntentFilter[]{};
+        nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, null);
     }
 }
