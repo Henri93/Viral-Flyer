@@ -3,10 +3,13 @@ package viralflyer.henrygarant.com.viralflyer;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
+import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -95,5 +98,22 @@ public class MainActivity extends ActionBarActivity {
 
     public void disableForegroundDispatch() {
         nfcAdapter.disableForegroundDispatch(this);
+    }
+
+    public void formatTag(Tag tag, NdefMessage ndefMessage){
+        try{
+            NdefFormatable ndefFormatable = NdefFormatable.get(tag);
+            if(ndefFormatable == null){
+                Toast.makeText(this, "Tag is not formatable", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            ndefFormatable.connect();
+            ndefFormatable.format(ndefMessage);
+            ndefFormatable.close();
+            Toast.makeText(this, "Tag written", Toast.LENGTH_SHORT).show();
+        }
+        catch(Exception e){
+            Log.e("FormatTag", e.getMessage());
+        }
     }
 }
