@@ -33,6 +33,25 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        /*
+        For testing purposes
+        TODO remove
+        */
+        enableForegroundDispatch();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        /*
+        For testing purposes
+        TODO remove
+        */
+        disableForegroundDispatch();
+        super.onPause();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
