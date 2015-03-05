@@ -15,11 +15,16 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Test if the user has NFC established
+        //Check if the user has NFC
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-
+        //Inform the user of their NFC situation
         if(nfcAdapter != null && nfcAdapter.isEnabled()){
-            Toast.makeText(this, "NFC ENABLED!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "NFC enabled", Toast.LENGTH_SHORT).show();
+        }
+        else if(nfcAdapter != null){
+            Toast.makeText(this, "Please enable NFC", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "NFC failed", Toast.LENGTH_SHORT).show();
         }
     }
 
