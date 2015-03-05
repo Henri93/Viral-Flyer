@@ -8,7 +8,7 @@ Then the solution is simple, **Viral Flyer**!
 
 **Viral Flyer** enables you to **simplistically share event information** with **just the tap of your phones**.
 
-**Viral Flyer** is supplanting paper flyer with the new age of technology, so **what are you waiting for**?
+**Viral Flyer** is supplanting the paper flyer with the new age of technology, so **what are you waiting for**?
 
 `To help support Viral Flyer please contact ` henryrgarant@gmail.com
 
