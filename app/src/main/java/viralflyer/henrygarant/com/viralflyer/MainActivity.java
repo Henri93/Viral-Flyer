@@ -1,9 +1,11 @@
 package viralflyer.henrygarant.com.viralflyer;
 
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -12,6 +14,13 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Test if the user has NFC established
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+
+        if(nfcAdapter != null && nfcAdapter.isEnabled()){
+            Toast.makeText(this, "NFC ENABLED!", Toast.LENGTH_LONG).show();
+        }
     }
 
 
