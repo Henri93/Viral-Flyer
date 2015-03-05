@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
+import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -100,10 +101,10 @@ public class MainActivity extends ActionBarActivity {
         nfcAdapter.disableForegroundDispatch(this);
     }
 
-    public void formatTag(Tag tag, NdefMessage ndefMessage){
-        try{
+    public void formatTag(Tag tag, NdefMessage ndefMessage) {
+        try {
             NdefFormatable ndefFormatable = NdefFormatable.get(tag);
-            if(ndefFormatable == null){
+            if (ndefFormatable == null) {
                 Toast.makeText(this, "Tag is not formatable", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -111,9 +112,36 @@ public class MainActivity extends ActionBarActivity {
             ndefFormatable.format(ndefMessage);
             ndefFormatable.close();
             Toast.makeText(this, "Tag written", Toast.LENGTH_SHORT).show();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             Log.e("FormatTag", e.getMessage());
+        }
+    }
+
+    public void writeNdefMessage(Tag tag, NdefMessage ndefMessage) {
+        try {
+            if (tag == null) {
+                return;
+            }
+
+            Ndef ndef = Ndef.get(tag);
+
+            if (ndef == null) {
+                //Tag needs to be formatted
+                formatTag(tag, ndefMessage);
+            } else {
+                ndef.connect();
+
+                if (!ndef.isWritable()) {
+                    //tag is not writable
+                    ndef.close();
+                    return;
+                }
+
+                ndef.writeNdefMessage(ndefMessage);
+                ndef.close();
+            }
+        } catch (Exception e) {
+            Log.e("WriteTag", e.getMessage());
         }
     }
 }
