@@ -7,9 +7,9 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
-import android.nfc.tech.Ndef;
-import android.nfc.tech.NdefFormatable;
+import android.nfc.tech.NfcF;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -17,12 +17,17 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.Locale;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    NfcAdapter nfcAdapter;
+    private NfcAdapter nfcAdapter;
+    private PendingIntent mPendingIntent;
+    private IntentFilter[] mIntentFilters;
+    private String[][] mNFCTechLists;
+    private NdefMessage ndefMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,25 +44,43 @@ public class MainActivity extends ActionBarActivity {
         } else {
             Toast.makeText(this, "NFC failed", Toast.LENGTH_SHORT).show();
         }
+
+        // create an intent with tag data and deliver to this activity
+        mPendingIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+
+        // set an intent filter for all MIME data
+        IntentFilter ndefIntent = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
+        try {
+            ndefIntent.addDataType("*/*");
+            mIntentFilters = new IntentFilter[] { ndefIntent };
+        } catch (Exception e) {
+            Log.e("TagDispatch", e.toString());
+        }
+
+        mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
+
+        // create an NDEF message with two records of plain text type
+        ndefMessage = new NdefMessage(
+                new NdefRecord[] {
+                        createTextRecord("First sample NDEF text record", Locale.ENGLISH, true),
+                        createTextRecord("Second sample NDEF text record", Locale.ENGLISH, true) });
     }
 
     @Override
     protected void onResume() {
-        /*
-        For testing purposes
-        TODO remove
-        */
-        enableForegroundDispatch();
+        if (nfcAdapter != null){
+            nfcAdapter.setNdefPushMessage(ndefMessage, this);
+            nfcAdapter.enableForegroundDispatch(this, mPendingIntent, mIntentFilters, mNFCTechLists);
+        }
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        /*
-        For testing purposes
-        TODO remove
-        */
-        disableForegroundDispatch();
+        if (nfcAdapter != null){
+            nfcAdapter.disableForegroundDispatch(this);
+        }
         super.onPause();
     }
 
@@ -85,77 +108,38 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-        if (intent.hasExtra(nfcAdapter.EXTRA_TAG)) {
-            Toast.makeText(this, "NFC intent received", Toast.LENGTH_SHORT).show();
-            Tag tag = intent.getParcelableExtra(nfcAdapter.EXTRA_TAG);
-            NdefMessage ndefMessage = createNdefMessage("My NFC message");
-            writeNdefMessage(tag, ndefMessage);
-        }
-        super.onNewIntent(intent);
-    }
+        String action = intent.getAction();
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
-    public void enableForegroundDispatch() {
-        Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        IntentFilter[] intentFilters = new IntentFilter[]{};
-        nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, null);
-    }
+        String s = action + "\n\n" + tag.toString();
 
-    public void disableForegroundDispatch() {
-        nfcAdapter.disableForegroundDispatch(this);
-    }
+        // parse through all NDEF messages and their records and pick text type only
+        Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+        if (data != null) {
+            try {
+                for (int i = 0; i < data.length; i++) {
+                    NdefRecord [] recs = ((NdefMessage)data[i]).getRecords();
+                    for (int j = 0; j < recs.length; j++) {
+                        if (recs[j].getTnf() == NdefRecord.TNF_WELL_KNOWN &&
+                                Arrays.equals(recs[j].getType(), NdefRecord.RTD_TEXT)) {
+                            byte[] payload = recs[j].getPayload();
+                            String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
+                            int langCodeLen = payload[0] & 0077;
 
-    public void formatTag(Tag tag, NdefMessage ndefMessage) {
-        try {
-            NdefFormatable ndefFormatable = NdefFormatable.get(tag);
-            if (ndefFormatable == null) {
-                Toast.makeText(this, "Tag is not formatable", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            ndefFormatable.connect();
-            ndefFormatable.format(ndefMessage);
-            ndefFormatable.close();
-            Toast.makeText(this, "Tag written", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Log.e("FormatTag", e.getMessage());
-        }
-    }
-
-    public void writeNdefMessage(Tag tag, NdefMessage ndefMessage) {
-        try {
-            if (tag == null) {
-                return;
-            }
-
-            Ndef ndef = Ndef.get(tag);
-
-            if (ndef == null) {
-                //Tag needs to be formatted
-                formatTag(tag, ndefMessage);
-            } else {
-                ndef.connect();
-
-                if (!ndef.isWritable()) {
-                    //tag is not writable
-                    ndef.close();
-                    return;
+                            s += ("\n\nNdefMessage[" + i + "], NdefRecord[" + j + "]:\n\"" +
+                                    new String(payload, langCodeLen + 1, payload.length - langCodeLen - 1,
+                                            textEncoding) + "\"");
+                        }
+                    }
                 }
-
-                ndef.writeNdefMessage(ndefMessage);
-                ndef.close();
+            } catch (Exception e) {
+                Log.e("TagDispatch", e.toString());
             }
-        } catch (Exception e) {
-            Log.e("WriteTag", e.getMessage());
         }
+        Log.d("NFC Message", s);
     }
 
-    public NdefMessage createNdefMessage(String content) {
-        NdefRecord ndefRecord = createTextRecord(content, Locale.ENGLISH, true);
-        NdefMessage ndefMessage = new NdefMessage(new NdefRecord[]{ndefRecord});
-        return ndefMessage;
-    }
-
-    public NdefRecord createTextRecord(String payload, Locale locale, boolean encodeInUtf8) {
+    public static NdefRecord createTextRecord(String payload, Locale locale, boolean encodeInUtf8) {
         byte[] langBytes = locale.getLanguage().getBytes(Charset.forName("US-ASCII"));
         Charset utfEncoding = encodeInUtf8 ? Charset.forName("UTF-8") : Charset.forName("UTF-16");
         byte[] textBytes = payload.getBytes(utfEncoding);
@@ -165,8 +149,7 @@ public class MainActivity extends ActionBarActivity {
         data[0] = (byte) status;
         System.arraycopy(langBytes, 0, data, 1, langBytes.length);
         System.arraycopy(textBytes, 0, data, 1 + langBytes.length, textBytes.length);
-        NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
+        return new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
                 NdefRecord.RTD_TEXT, new byte[0], data);
-        return record;
     }
 }
