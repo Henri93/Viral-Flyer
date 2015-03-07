@@ -1,4 +1,5 @@
-# Viral-Flyer
+# Viral Flyer 
+
 
 Have you ever wanted to invite your friends to an event **BUT**:
 - you didn't feel like **explaining the event information**
@@ -11,4 +12,6 @@ Then the solution is simple, **Viral Flyer**!
 **Viral Flyer** is supplanting the paper flyer with the new age of technology, so **what are you waiting for**?
 
 `To help support Viral Flyer please contact ` henryrgarant@gmail.com
+
+![Viral Flyer](https://github.com/Henri93/Viral-Flyer/blob/development/app/src/main/res/drawable-xhdpi/logo_96.png?raw=true)
 
