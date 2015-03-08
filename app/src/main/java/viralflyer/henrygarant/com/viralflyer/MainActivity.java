@@ -11,10 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 
 public class MainActivity extends ActionBarActivity {
 
     private NfcAdapter nfcAdapter;
+    private Flyer flyer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,9 @@ public class MainActivity extends ActionBarActivity {
             Toast.makeText(this, "Android Beam is supported on your device.",
                     Toast.LENGTH_SHORT).show();
         }
+
+        flyer = new Flyer("Henry", "House Party", new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE), "3030 Magee Ave");
+        Log.d("Event: ",flyer.toString());
     }
 
     public void sendFile(View view) {
