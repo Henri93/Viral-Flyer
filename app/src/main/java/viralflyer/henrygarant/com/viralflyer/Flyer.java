@@ -1,7 +1,6 @@
 package viralflyer.henrygarant.com.viralflyer;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class Flyer{
 
@@ -10,12 +9,7 @@ public class Flyer{
     private String location;
     private String host;
 
-    public Flyer() {
-        this.host = "";
-        this.calendar = new GregorianCalendar();
-        this.eventName = "";
-        this.location = "";
-    }
+    public Flyer() {}
 
     public Flyer(String host, String eventName, Calendar calendar, String location) {
         this.host = host;
@@ -60,15 +54,5 @@ public class Flyer{
 
     public void setHost(String host) {
         this.host = host;
-    }
-
-    @Override
-    public String toString() {
-        return "Flyer{" +
-                "eventName='" + eventName + '\'' +
-                ", calendar=" + calendar.toString() +
-                ", location='" + location + '\'' +
-                ", host='" + host + '\'' +
-                '}';
     }
 }
