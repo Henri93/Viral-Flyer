@@ -76,9 +76,9 @@ public class Flyer{
 
     public String toReadableText() {
         return  "Event Name='" + eventName + '\'' +
-                ", Date=" + calendar.getTime().getDate() + '\'' +
-                ", Time=" + calendar.getTime().getHours() +":"+ calendar.getTime().getMinutes() + '\'' +
-                ", location='" + location + '\'' +
-                ", host='" + host + '\'';
+                ", Date='" + calendar.getTime().getMonth() + "/" + calendar.getTime().getDate() + calendar.getTime().getYear() +'\'' +
+                ", Time='" + calendar.getTime().getHours() +":"+ calendar.getTime().getMinutes() + '\'' +
+                ", Location='" + location + '\'' +
+                ", Host='" + host + '\'';
     }
 }
