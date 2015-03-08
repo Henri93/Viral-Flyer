@@ -45,7 +45,7 @@ public class MainActivity extends ActionBarActivity {
         }
 
         flyer = new Flyer("Henry", "House Party", new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE), "3030 Magee Ave");
-        Log.d("Simulated Event: ",flyer.toString());
+        Log.d("Event: ",flyer.toString());
     }
 
     public void sendFile(View view) {
