@@ -1,8 +1,15 @@
 package viralflyer.henrygarant.com.viralflyer;
 
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.nfc.FormatException;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.Ndef;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -11,12 +18,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.GregorianCalendar;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 
 public class MainActivity extends ActionBarActivity {
 
     private NfcAdapter nfcAdapter;
+    PendingIntent pendingIntent;
+    IntentFilter writeTagFilters[];
+    Tag mytag;
     private Flyer flyer;
 
     @Override
@@ -43,8 +54,13 @@ public class MainActivity extends ActionBarActivity {
                     Toast.LENGTH_SHORT).show();
         }
 
-        flyer = new Flyer("Henry", "House Party", new GregorianCalendar(), "3030 Magee Ave");
-        Log.d("Event: ",flyer.toReadableText());
+        //flyer = new Flyer("Henry", "House Party", new GregorianCalendar(), "3030 Magee Ave");
+        //Log.d("Event: ",flyer.toReadableText());
+        pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+        IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
+        tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
+        writeTagFilters = new IntentFilter[] { tagDetected };
+        //write("Henry Was Here!", mytag);
     }
 
     public void sendFile(View view) {
@@ -74,5 +90,42 @@ public class MainActivity extends ActionBarActivity {
             nfcAdapter.setBeamPushUris(
                     new Uri[]{Uri.fromFile(fileToTransfer)}, this);*/
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent){
+        if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())){
+            mytag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+            Toast.makeText(this, "XXX:  " + mytag.toString(), Toast.LENGTH_LONG ).show();
+        }
+    }
+
+    private NdefRecord createRecord(String text) throws UnsupportedEncodingException {
+
+        //create the message in according with the standard
+        String lang = "en";
+        byte[] textBytes = text.getBytes();
+        byte[] langBytes = lang.getBytes("US-ASCII");
+        int langLength = langBytes.length;
+        int textLength = textBytes.length;
+
+        byte[] payload = new byte[1 + langLength + textLength];
+        payload[0] = (byte) langLength;
+
+        // copy langbytes and textbytes into payload
+        System.arraycopy(langBytes, 0, payload, 1, langLength);
+        System.arraycopy(textBytes, 0, payload, 1 + langLength, textLength);
+
+        NdefRecord recordNFC = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT, new byte[0], payload);
+        return recordNFC;
+    }
+
+    private void write(String text, Tag tag) throws IOException, FormatException {
+        NdefRecord[] records = { createRecord(text) };
+        NdefMessage message = new NdefMessage(records);
+        Ndef ndef = Ndef.get(tag);
+        ndef.connect();
+        ndef.writeNdefMessage(message);
+        ndef.close();
     }
 }
