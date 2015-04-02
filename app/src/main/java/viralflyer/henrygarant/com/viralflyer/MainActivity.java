@@ -34,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("WE HERE","");
+
 
         PackageManager pm = this.getPackageManager();
         // Check whether NFC is available on device
@@ -95,7 +95,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onNewIntent(Intent intent){
-
+        Log.d("WE HERE","Yes");
         if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())){
             mytag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             Toast.makeText(this, "XXX:  " + mytag.toString(), Toast.LENGTH_LONG ).show();
