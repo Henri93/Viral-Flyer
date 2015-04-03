@@ -84,7 +84,7 @@ public class MainActivity extends ActionBarActivity {
         String action = intent.getAction();
         myTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
-        String s = action + "\n\n" + myTag.toString();
+        String s = "";
 
         // parse through all NDEF messages and their records and pick text type only
         Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
@@ -99,9 +99,8 @@ public class MainActivity extends ActionBarActivity {
                             String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
                             int langCodeLen = payload[0] & 0077;
 
-                            s += ("\n\nNdefMessage[" + i + "], NdefRecord[" + j + "]:\n\"" +
-                                    new String(payload, langCodeLen + 1, payload.length - langCodeLen - 1,
-                                            textEncoding) + "\"");
+                            s += new String(payload, langCodeLen + 1, payload.length - langCodeLen - 1,
+                                            textEncoding);
                         }
                     }
                 }
