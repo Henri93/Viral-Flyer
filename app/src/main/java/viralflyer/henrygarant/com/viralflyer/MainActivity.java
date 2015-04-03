@@ -149,8 +149,7 @@ public class MainActivity extends ActionBarActivity {
         // create an NDEF message with two records of plain text type
         mNdefMessage = new NdefMessage(
                 new NdefRecord[] {
-                        createNewTextRecord("First sample NDEF text record", Locale.ENGLISH, true),
-                        createNewTextRecord("Second sample NDEF text record", Locale.ENGLISH, true) });
+                        createNewTextRecord("Henry Garant \n (267)-670-0999 \n henryrgarant@gmail.com \n Android Developer", Locale.ENGLISH, true)});
 
         Ndef ndef = Ndef.get(myTag);
         try {
