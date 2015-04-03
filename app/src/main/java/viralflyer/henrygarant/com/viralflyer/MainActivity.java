@@ -4,10 +4,12 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
+import android.nfc.tech.Ndef;
 import android.nfc.tech.NfcF;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Locale;
@@ -31,6 +34,7 @@ public class MainActivity extends ActionBarActivity {
     private IntentFilter[] mIntentFilters;
     private String[][] mNFCTechLists;
     private NdefMessage mNdefMessage;
+    private Tag myTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +82,9 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public void onNewIntent(Intent intent) {
         String action = intent.getAction();
-        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        myTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
-        String s = action + "\n\n" + tag.toString();
+        String s = action + "\n\n" + myTag.toString();
 
         // parse through all NDEF messages and their records and pick text type only
         Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
@@ -147,5 +151,16 @@ public class MainActivity extends ActionBarActivity {
                 new NdefRecord[] {
                         createNewTextRecord("First sample NDEF text record", Locale.ENGLISH, true),
                         createNewTextRecord("Second sample NDEF text record", Locale.ENGLISH, true) });
+
+        Ndef ndef = Ndef.get(myTag);
+        try {
+            ndef.connect();
+            ndef.writeNdefMessage(mNdefMessage);
+            ndef.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FormatException e) {
+            e.printStackTrace();
+        }
     }
 }
