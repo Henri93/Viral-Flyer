@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,11 +73,6 @@ public class MainActivity extends ActionBarActivity {
 
         mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
 
-        // create an NDEF message with two records of plain text type
-        mNdefMessage = new NdefMessage(
-                new NdefRecord[] {
-                        createNewTextRecord("First sample NDEF text record", Locale.ENGLISH, true),
-                        createNewTextRecord("Second sample NDEF text record", Locale.ENGLISH, true) });
     }
 
     @Override
@@ -143,5 +139,13 @@ public class MainActivity extends ActionBarActivity {
         super.onPause();
         if (mNfcAdapter != null)
             mNfcAdapter.disableForegroundDispatch(this);
+    }
+
+    public void PushMessage(View v){
+        // create an NDEF message with two records of plain text type
+        mNdefMessage = new NdefMessage(
+                new NdefRecord[] {
+                        createNewTextRecord("First sample NDEF text record", Locale.ENGLISH, true),
+                        createNewTextRecord("Second sample NDEF text record", Locale.ENGLISH, true) });
     }
 }

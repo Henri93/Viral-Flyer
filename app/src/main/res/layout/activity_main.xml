@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Send NFC message"
         android:id="@+id/button"
-        android:onClick="sendFile"
+        android:onClick="PushMessage"
         android:textColor="#ff69EB61"
         android:background="#ff3E403C" />
 
