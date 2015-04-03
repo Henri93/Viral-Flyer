@@ -20,9 +20,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="New Text"
+        android:text="Scan a NFC tag"
         android:id="@+id/myTextView"
-        android:layout_gravity="center_horizontal"
-        android:textColor="#ffebeaec" />
+        android:layout_gravity="center"
+        android:textColor="#ff67e460"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:textSize="35sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display4" />
 
 </LinearLayout>

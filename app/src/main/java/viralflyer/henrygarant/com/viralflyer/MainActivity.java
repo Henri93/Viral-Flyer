@@ -99,7 +99,7 @@ public class MainActivity extends ActionBarActivity {
                             String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
                             int langCodeLen = payload[0] & 0077;
 
-                            s += new String(payload, langCodeLen + 1, payload.length - langCodeLen - 1,
+                            s += " "+new String(payload, langCodeLen + 1, payload.length - langCodeLen - 1,
                                             textEncoding);
                         }
                     }
