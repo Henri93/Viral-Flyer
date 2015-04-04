@@ -13,6 +13,7 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NfcF;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -104,6 +105,7 @@ public class Writer extends ActionBarActivity {
             }
         } else {
             statusText.setText("Status: Enable NFC");
+            startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
         }
     }
 
