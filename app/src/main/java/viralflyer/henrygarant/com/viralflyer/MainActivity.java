@@ -53,14 +53,13 @@ public class MainActivity extends ActionBarActivity {
             // Android Beam feature is not supported.
             Toast.makeText(this, "Android Beam is not supported.",
                     Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             // NFC and Android Beam file transfer is supported.
             Toast.makeText(this, "Android Beam is supported on your device.",
                     Toast.LENGTH_SHORT).show();
         }
 
-        mTextView = (TextView)findViewById(R.id.myTextView);
+        mTextView = (TextView) findViewById(R.id.myTextView);
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         // create an intent with tag data and deliver to this activity
         mPendingIntent = PendingIntent.getActivity(this, 0,
@@ -70,12 +69,12 @@ public class MainActivity extends ActionBarActivity {
         IntentFilter ndefIntent = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
         try {
             ndefIntent.addDataType("*/*");
-            mIntentFilters = new IntentFilter[] { ndefIntent };
+            mIntentFilters = new IntentFilter[]{ndefIntent};
         } catch (Exception e) {
             Log.e("TagDispatch", e.toString());
         }
 
-        mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
+        mNFCTechLists = new String[][]{new String[]{NfcF.class.getName()}};
 
     }
 
@@ -91,7 +90,7 @@ public class MainActivity extends ActionBarActivity {
         if (data != null) {
             try {
                 for (int i = 0; i < data.length; i++) {
-                    NdefRecord[] recs = ((NdefMessage)data[i]).getRecords();
+                    NdefRecord[] recs = ((NdefMessage) data[i]).getRecords();
                     for (int j = 0; j < recs.length; j++) {
                         if (recs[j].getTnf() == NdefRecord.TNF_WELL_KNOWN &&
                                 Arrays.equals(recs[j].getType(), NdefRecord.RTD_TEXT)) {
@@ -99,8 +98,8 @@ public class MainActivity extends ActionBarActivity {
                             String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
                             int langCodeLen = payload[0] & 0077;
 
-                            s += " "+new String(payload, langCodeLen + 1, payload.length - langCodeLen - 1,
-                                            textEncoding);
+                            s += " " + new String(payload, langCodeLen + 1, payload.length - langCodeLen - 1,
+                                    textEncoding);
                         }
                     }
                 }
@@ -119,10 +118,10 @@ public class MainActivity extends ActionBarActivity {
         byte[] textBytes = text.getBytes(utfEncoding);
 
         int utfBit = encodeInUtf8 ? 0 : (1 << 7);
-        char status = (char)(utfBit + langBytes.length);
+        char status = (char) (utfBit + langBytes.length);
 
         byte[] data = new byte[1 + langBytes.length + textBytes.length];
-        data[0] = (byte)status;
+        data[0] = (byte) status;
         System.arraycopy(langBytes, 0, data, 1, langBytes.length);
         System.arraycopy(textBytes, 0, data, 1 + langBytes.length, textBytes.length);
 
@@ -144,10 +143,10 @@ public class MainActivity extends ActionBarActivity {
             mNfcAdapter.disableForegroundDispatch(this);
     }
 
-    public void PushMessage(View v){
+    public void PushMessage(View v) {
         // create an NDEF message with two records of plain text type
         mNdefMessage = new NdefMessage(
-                new NdefRecord[] {
+                new NdefRecord[]{
                         createNewTextRecord("Henry Garant \n (267)-670-0999 \n henryrgarant@gmail.com \n Android Developer", Locale.ENGLISH, true)});
 
         Ndef ndef = Ndef.get(myTag);

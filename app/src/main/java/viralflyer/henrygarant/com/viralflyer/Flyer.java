@@ -3,7 +3,7 @@ package viralflyer.henrygarant.com.viralflyer;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class Flyer{
+public class Flyer {
 
     private String eventName;
     private Calendar calendar;
@@ -75,9 +75,9 @@ public class Flyer{
     }
 
     public String toReadableText() {
-        return  "Event Name='" + eventName + '\'' +
-                ", Date='" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.YEAR)) +'\'' +
-                ", Time='" + calendar.get(Calendar.HOUR_OF_DAY) +":"+ calendar.get(Calendar.MINUTE) + '\'' +
+        return "Event Name='" + eventName + '\'' +
+                ", Date='" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.YEAR)) + '\'' +
+                ", Time='" + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + '\'' +
                 ", Location='" + location + '\'' +
                 ", Host='" + host + '\'';
     }

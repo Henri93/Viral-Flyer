@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Locale;
 
-public class Writer extends ActionBarActivity{
+public class Writer extends ActionBarActivity {
 
     private NfcAdapter mNfcAdapter;
     private PendingIntent mPendingIntent;
@@ -40,24 +40,21 @@ public class Writer extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.writer);
 
-        messageButton = (Button)findViewById(R.id.pushButton);
-        messageText = (EditText)findViewById(R.id.messageText);
-        statusText = (TextView)findViewById(R.id.statusText);
+        messageButton = (Button) findViewById(R.id.pushButton);
+        messageText = (EditText) findViewById(R.id.messageText);
+        statusText = (TextView) findViewById(R.id.statusText);
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
+        mNFCTechLists = new String[][]{new String[]{NfcF.class.getName()}};
         mPendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 
         // set an intent filter for all MIME data
         IntentFilter ndefIntent = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
-        try
-        {
+        try {
             ndefIntent.addDataType("*/*");
-            mIntentFilters = new IntentFilter[] { ndefIntent };
-        }
-        catch (Exception e)
-        {
+            mIntentFilters = new IntentFilter[]{ndefIntent};
+        } catch (Exception e) {
             Log.e("TagDispatch", e.toString());
         }
     }
@@ -81,8 +78,8 @@ public class Writer extends ActionBarActivity{
         tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
     }
 
-    public void PushMessage(View v){
-        NfcManager manager = (NfcManager)this.getSystemService(Context.NFC_SERVICE);
+    public void PushMessage(View v) {
+        NfcManager manager = (NfcManager) this.getSystemService(Context.NFC_SERVICE);
         NfcAdapter adapter = manager.getDefaultAdapter();
         if (adapter != null && adapter.isEnabled()) {
             try {
@@ -100,13 +97,12 @@ public class Writer extends ActionBarActivity{
                 messageText.setText("Status: Failed Connection");
             } catch (FormatException e) {
                 e.printStackTrace();
-                statusText.setText("Status: Failed Receiver");
-            }
-            catch (NullPointerException e) {
+                statusText.setText("Status: Failed To Format");
+            } catch (NullPointerException e) {
                 e.printStackTrace();
-                messageText.setText("Place Tag");
+                statusText.setText("Status: Failed No Receiver");
             }
-        } else{
+        } else {
             statusText.setText("Status: Enable NFC");
         }
     }
@@ -116,9 +112,9 @@ public class Writer extends ActionBarActivity{
         Charset utfEncoding = encodeInUtf8 ? Charset.forName("UTF-8") : Charset.forName("UTF-16");
         byte[] textBytes = text.getBytes(utfEncoding);
         int utfBit = encodeInUtf8 ? 0 : (1 << 7);
-        char status = (char)(utfBit + langBytes.length);
+        char status = (char) (utfBit + langBytes.length);
         byte[] data = new byte[1 + langBytes.length + textBytes.length];
-        data[0] = (byte)status;
+        data[0] = (byte) status;
         System.arraycopy(langBytes, 0, data, 1, langBytes.length);
         System.arraycopy(textBytes, 0, data, 1 + langBytes.length, textBytes.length);
         return new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT, new byte[0], data);
