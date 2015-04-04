@@ -108,7 +108,9 @@ public class Writer extends ActionBarActivity {
             Toast.makeText(this, "Please Enable NFC",
                     Toast.LENGTH_SHORT).show();
             statusText.setText("Status: Ready");
-            startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
+            Intent intentNFCSettings = new Intent(Settings.ACTION_NFC_SETTINGS);
+            intentNFCSettings.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivityForResult(intentNFCSettings, 0);
         }
     }
 
