@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -95,16 +96,18 @@ public class Writer extends ActionBarActivity {
                 statusText.setText("Status: Success");
             } catch (IOException e) {
                 e.printStackTrace();
-                statusText.setText("Status: Failed Connection");
+                statusText.setText("Status: Failed Connection-Try Again");
             } catch (FormatException e) {
                 e.printStackTrace();
-                statusText.setText("Status: Failed To Format");
+                statusText.setText("Status: Failed To Format-Try Again");
             } catch (NullPointerException e) {
                 e.printStackTrace();
-                statusText.setText("Status: Failed No Receiver");
+                statusText.setText("Status: Failed No Receiver-Place Device Closer");
             }
         } else {
-            statusText.setText("Status: Enable NFC");
+            Toast.makeText(this, "Please Enable NFC",
+                    Toast.LENGTH_SHORT).show();
+            statusText.setText("Status: Ready");
             startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
         }
     }
