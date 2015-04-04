@@ -94,7 +94,7 @@ public class Writer extends ActionBarActivity {
                 statusText.setText("Status: Success");
             } catch (IOException e) {
                 e.printStackTrace();
-                messageText.setText("Status: Failed Connection");
+                statusText.setText("Status: Failed Connection");
             } catch (FormatException e) {
                 e.printStackTrace();
                 statusText.setText("Status: Failed To Format");
