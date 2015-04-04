@@ -94,6 +94,10 @@ public class Writer extends ActionBarActivity{
             e.printStackTrace();
             messageText.setText("Failed");
         }
+        catch (NullPointerException e) {
+            e.printStackTrace();
+            messageText.setText("Place Tag");
+        }
     }
 
     public static NdefRecord createNewTextRecord(String text, Locale locale, boolean encodeInUtf8) {
