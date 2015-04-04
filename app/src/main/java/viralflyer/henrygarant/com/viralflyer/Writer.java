@@ -1,12 +1,14 @@
 package viralflyer.henrygarant.com.viralflyer;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
+import android.nfc.NfcManager;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NfcF;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -30,6 +33,7 @@ public class Writer extends ActionBarActivity{
     private Tag tag;
     private Button messageButton;
     private EditText messageText;
+    private TextView statusText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class Writer extends ActionBarActivity{
 
         messageButton = (Button)findViewById(R.id.pushButton);
         messageText = (EditText)findViewById(R.id.messageText);
+        statusText = (TextView)findViewById(R.id.statusText);
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
@@ -77,26 +82,32 @@ public class Writer extends ActionBarActivity{
     }
 
     public void PushMessage(View v){
-        try {
-            // create an NDEF message with record of plain text type
-            NdefMessage mNdefMessage = new NdefMessage(
-                    new NdefRecord[]{
-                            createNewTextRecord(messageText.getText().toString(), Locale.ENGLISH, true)});
-            Ndef ndef = Ndef.get(tag);
-            ndef.connect();
-            ndef.writeNdefMessage(mNdefMessage);
-            ndef.close();
-            messageText.setText("Success");
-        } catch (IOException e) {
-            e.printStackTrace();
-            messageText.setText("Failed");
-        } catch (FormatException e) {
-            e.printStackTrace();
-            messageText.setText("Failed");
-        }
-        catch (NullPointerException e) {
-            e.printStackTrace();
-            messageText.setText("Place Tag");
+        NfcManager manager = (NfcManager)this.getSystemService(Context.NFC_SERVICE);
+        NfcAdapter adapter = manager.getDefaultAdapter();
+        if (adapter != null && adapter.isEnabled()) {
+            try {
+                // create an NDEF message with record of plain text type
+                NdefMessage mNdefMessage = new NdefMessage(
+                        new NdefRecord[]{
+                                createNewTextRecord(messageText.getText().toString(), Locale.ENGLISH, true)});
+                Ndef ndef = Ndef.get(tag);
+                ndef.connect();
+                ndef.writeNdefMessage(mNdefMessage);
+                ndef.close();
+                statusText.setText("Status: Success");
+            } catch (IOException e) {
+                e.printStackTrace();
+                messageText.setText("Status: Failed Connection");
+            } catch (FormatException e) {
+                e.printStackTrace();
+                statusText.setText("Status: Failed Receiver");
+            }
+            catch (NullPointerException e) {
+                e.printStackTrace();
+                messageText.setText("Place Tag");
+            }
+        } else{
+            statusText.setText("Status: Enable NFC");
         }
     }
 
