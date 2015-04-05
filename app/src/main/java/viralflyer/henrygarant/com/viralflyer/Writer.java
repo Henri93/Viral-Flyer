@@ -1,14 +1,12 @@
 package viralflyer.henrygarant.com.viralflyer;
 
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
-import android.nfc.NfcManager;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NfcF;
@@ -81,9 +79,7 @@ public class Writer extends ActionBarActivity {
     }
 
     public void PushMessage(View v) {
-        NfcManager manager = (NfcManager) this.getSystemService(Context.NFC_SERVICE);
-        NfcAdapter adapter = manager.getDefaultAdapter();
-        if (adapter != null && adapter.isEnabled()) {
+        if (mNfcAdapter != null && mNfcAdapter.isEnabled()) {
             try {
                 // create an NDEF message with record of plain text type
                 NdefMessage mNdefMessage = new NdefMessage(
