@@ -6,8 +6,7 @@
             android:innerRadius="0dp"
             android:thickness="75dp"
             android:useLevel="false">
-            <stroke android:color="#ff37b058"
-                android:width="2dp"/>
+            <solid android:color="#ff37b058"/>
         </shape>
     </item>
     <item android:state_focused="true">
@@ -16,18 +15,17 @@
             android:innerRadius="0dp"
             android:thickness="75dp"
             android:useLevel="false">
-            <stroke android:color="#ff37b058"
-                android:width="2dp"/>
+            <solid android:color="#ff37b058"/>
         </shape>
     </item>
     <item >
         <shape xmlns:android="http://schemas.android.com/apk/res/android"
-            android:shape="ring"
+            android:shape="rectangle"
             android:innerRadius="0dp"
             android:thickness="75dp"
             android:useLevel="false">
-            <stroke android:color="#ff37b058"
-                android:width="2dp"/>
+            <stroke android:color="#ff37b058" android:width="2dp"/>
+            <corners android:radius="50dp"/>
         </shape>
     </item>
 </selector>

@@ -17,9 +17,11 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         Button write = (Button)findViewById(R.id.writeButton);
         Button read = (Button)findViewById(R.id.readButton);
+        Button help = (Button)findViewById(R.id.helpButton);
         Typeface font = Typeface.createFromAsset(this.getAssets(), "encode_thin.ttf");
         write.setTypeface(font);
         read.setTypeface(font);
+        help.setTypeface(font);
     }
 
     public void read(View v){
