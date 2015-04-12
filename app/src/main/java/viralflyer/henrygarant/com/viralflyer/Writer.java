@@ -39,6 +39,7 @@ public class Writer extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.writer);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         messageButton = (Button) findViewById(R.id.pushButton);
         messageText = (EditText) findViewById(R.id.messageText);
