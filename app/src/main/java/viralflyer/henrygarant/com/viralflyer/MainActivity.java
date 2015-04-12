@@ -1,9 +1,11 @@
 package viralflyer.henrygarant.com.viralflyer;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -13,6 +15,11 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button write = (Button)findViewById(R.id.writeButton);
+        Button read = (Button)findViewById(R.id.readButton);
+        Typeface font = Typeface.createFromAsset(getAssets(), "encode_thin.ttf");
+        write.setTypeface(font);
+        read.setTypeface(font);
     }
 
     public void read(View v){
