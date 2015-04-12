@@ -2,20 +2,22 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:state_pressed="true" >
         <shape xmlns:android="http://schemas.android.com/apk/res/android"
-            android:shape="ring"
+            android:shape="rectangle"
             android:innerRadius="0dp"
             android:thickness="75dp"
             android:useLevel="false">
-            <solid android:color="#ff37b058"/>
+            <solid android:color="@color/DefaultStyle_Dark"/>
+            <corners android:radius="7dp"/>
         </shape>
     </item>
     <item android:state_focused="true">
         <shape xmlns:android="http://schemas.android.com/apk/res/android"
-            android:shape="ring"
+            android:shape="rectangle"
             android:innerRadius="0dp"
             android:thickness="75dp"
             android:useLevel="false">
-            <solid android:color="#ff37b058"/>
+            <solid android:color="@color/DefaultStyle_Dark"/>
+            <corners android:radius="7dp"/>
         </shape>
     </item>
     <item >
@@ -24,7 +26,7 @@
             android:innerRadius="0dp"
             android:thickness="75dp"
             android:useLevel="false">
-            <stroke android:color="#ff37b058" android:width="1dp"/>
+            <stroke android:color="@color/DefaultStyle" android:width="1dp"/>
             <corners android:radius="7dp"/>
         </shape>
     </item>

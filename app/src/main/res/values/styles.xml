@@ -2,9 +2,13 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorControlNormal">#ff37b058</item>
-        <item name="colorControlActivated">#ff37b058</item>
-        <item name="colorControlHighlight">#ff37b058</item>
+        <item name="colorControlNormal">@color/DefaultStyle</item>
+        <item name="colorControlActivated">@color/DefaultStyle_Dark</item>
+        <item name="colorControlHighlight">@color/DefaultStyle_Dark</item>
     </style>
+
+    <color name="DefaultStyle">#2ecc71</color>
+    <color name="DefaultStyle_Dark">#27ae60</color>
+    <color name="DefaultStyle_Background">#ff424340</color>
 
 </resources>
