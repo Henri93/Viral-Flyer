@@ -14,14 +14,15 @@
         android:text="Write Message"
         android:id="@+id/writeButton"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/circle_button"
+        android:background="@drawable/circle_button_ring"
         android:paddingBottom="75dp"
         android:paddingTop="75dp"
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
         android:layout_marginTop="50dp"
         android:textSize="18sp"
-        android:onClick="write" />
+        android:onClick="write"
+        android:textColor="#ff37b058" />
 
     <Button
         android:layout_width="wrap_content"
@@ -36,5 +37,6 @@
         android:paddingRight="50dp"
         android:paddingBottom="75dp"
         android:textSize="18sp"
-        android:onClick="read" />
+        android:onClick="read"
+        android:textColor="#ff424340" />
 </LinearLayout>
