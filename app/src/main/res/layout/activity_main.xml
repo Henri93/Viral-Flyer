@@ -20,7 +20,8 @@
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
         android:layout_marginTop="50dp"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:onClick="write" />
 
     <Button
         android:layout_width="wrap_content"
@@ -34,5 +35,6 @@
         android:paddingTop="75dp"
         android:paddingRight="50dp"
         android:paddingBottom="75dp"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:onClick="read" />
 </LinearLayout>
