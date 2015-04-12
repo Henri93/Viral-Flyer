@@ -32,7 +32,6 @@ public class Reader extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reader);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         readerText = (TextView)findViewById(R.id.readerText);
         statusText = (TextView)findViewById(R.id.statusText_Reader);
