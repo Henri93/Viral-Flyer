@@ -17,7 +17,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         Button write = (Button)findViewById(R.id.writeButton);
         Button read = (Button)findViewById(R.id.readButton);
-        Typeface font = Typeface.createFromAsset(getAssets(), "encode_thin.ttf");
+        Typeface font = Typeface.createFromAsset(this.getAssets(), "encode_thin.ttf");
         write.setTypeface(font);
         read.setTypeface(font);
     }
