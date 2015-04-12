@@ -36,6 +36,10 @@ public class Reader extends ActionBarActivity{
         readerText = (TextView)findViewById(R.id.readerText);
         statusText = (TextView)findViewById(R.id.statusText_Reader);
 
+        TypeFacer typeFacer = new TypeFacer("encode.ttf", this);
+        typeFacer.setFont(readerText);
+        typeFacer.setFont(statusText);
+
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
             mNFCTechLists = new String[][]{new String[]{NfcF.class.getName()}};
