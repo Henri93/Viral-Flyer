@@ -1,7 +1,6 @@
 package viralflyer.henrygarant.com.viralflyer;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -18,10 +17,10 @@ public class MainActivity extends ActionBarActivity {
         Button write = (Button)findViewById(R.id.writeButton);
         Button read = (Button)findViewById(R.id.readButton);
         Button help = (Button)findViewById(R.id.helpButton);
-        Typeface font = Typeface.createFromAsset(this.getAssets(), "encode_thin.ttf");
-        write.setTypeface(font);
-        read.setTypeface(font);
-        help.setTypeface(font);
+        TypeFacer typeFacer = new TypeFacer("encode_thin.ttf", this);
+        typeFacer.setFont(write);
+        typeFacer.setFont(read);
+        typeFacer.setFont(help);
     }
 
     public void read(View v){

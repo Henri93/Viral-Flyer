@@ -40,10 +40,15 @@ public class Writer extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.writer);
 
-
         messageButton = (Button) findViewById(R.id.pushButton);
         messageText = (EditText) findViewById(R.id.messageText);
         statusText = (TextView) findViewById(R.id.statusText);
+
+        TypeFacer typeFacer = new TypeFacer("encode.ttf", this);
+        typeFacer.setFont(messageButton);
+        typeFacer.setFont(messageText);
+        typeFacer.setFont(statusText);
+
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         mNFCTechLists = new String[][]{new String[]{NfcF.class.getName()}};
