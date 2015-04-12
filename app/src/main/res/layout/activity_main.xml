@@ -9,25 +9,30 @@
     android:background="#ff323330">
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send NFC message"
-        android:id="@+id/button"
-        android:onClick="PushMessage"
-        android:textColor="#ff69EB61"
-        android:background="#ff3E403C" />
+        android:text="Write Message"
+        android:id="@+id/writeButton"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/circle_button"
+        android:paddingBottom="75dp"
+        android:paddingTop="75dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:layout_marginTop="50dp"
+        android:textSize="16sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Scan a NFC tag"
-        android:id="@+id/myTextView"
-        android:layout_gravity="center"
-        android:textColor="#ff67e460"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:textSize="25sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display4" />
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Read Message"
+        android:id="@+id/readButton"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/circle_button"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="50dp"
+        android:paddingTop="75dp"
+        android:paddingRight="50dp"
+        android:paddingBottom="75dp"
+        android:textSize="16sp" />
 </LinearLayout>
