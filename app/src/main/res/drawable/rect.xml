@@ -26,7 +26,7 @@
             android:innerRadius="0dp"
             android:thickness="75dp"
             android:useLevel="false">
-            <stroke android:color="@color/DefaultStyle" android:width="2dp"/>
+            <solid android:color="@color/DefaultStyle"></solid>
             <corners android:radius="7dp"/>
         </shape>
     </item>

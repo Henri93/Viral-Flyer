@@ -47,13 +47,16 @@
         android:layout_marginBottom="5dp" />
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Help"
         android:id="@+id/helpButton"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/rect_ring"
-        android:textColor="@color/DefaultStyle"
+        android:background="@drawable/rect"
+        android:textColor="@color/DefaultStyle_Background"
         android:textSize="18sp"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="75dp"
+        android:paddingRight="75dp" />
 </RelativeLayout>
