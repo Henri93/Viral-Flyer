@@ -1,5 +1,5 @@
 # Viral Flyer 
-
+![Viral Flyer](https://github.com/Henri93/Viral-Flyer/blob/development/app/src/main/res/drawable-xhdpi/logo_96.png?raw=true)
 
 Have you ever wanted to invite your friends to an event **BUT**:
 - you didn't feel like **explaining the event information**
@@ -14,6 +14,3 @@ Then the solution is simple, **Viral Flyer**!
 [Click here to jump into the code.](https://github.com/Henri93/Viral-Flyer/tree/development/app/src/main/java/viralflyer/henrygarant/com/viralflyer)
 
 `To help support Viral Flyer please contact ` henryrgarant@gmail.com
-
-![Viral Flyer](https://github.com/Henri93/Viral-Flyer/blob/development/app/src/main/res/drawable-xhdpi/logo_96.png?raw=true)
-
