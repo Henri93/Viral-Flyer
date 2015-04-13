@@ -29,9 +29,9 @@
         android:onClick="PushMessage"
         android:textSize="18sp"
         android:textColor="@color/DefaultStyle"
-        android:paddingLeft="10dp"
+        android:paddingLeft="20dp"
         android:paddingTop="75dp"
-        android:paddingRight="10dp"
+        android:paddingRight="20dp"
         android:paddingBottom="75dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
