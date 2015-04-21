@@ -13,6 +13,15 @@ Then the solution is simple, **Viral Flyer**!
 
 [Click here to jump into the code.](https://github.com/Henri93/Viral-Flyer/tree/development/app/src/main/java/viralflyer/henrygarant/com/viralflyer)
 
+### Current Tasks
+
+- [ ] Create Flyer Interface
+- [ ] Pass Flyers via NFC
+- [ ] Read Flyers and obtain data
+- [ ] Create Help Video
+- [x] Develop Concept
+- [x] Add Basic Design/Layout
+
 `To help support Viral Flyer please contact ` henryrgarant@gmail.com
 
 
