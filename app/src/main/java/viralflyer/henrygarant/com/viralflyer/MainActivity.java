@@ -1,13 +1,12 @@
 package viralflyer.henrygarant.com.viralflyer;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import java.io.FileOutputStream;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -26,17 +25,7 @@ public class MainActivity extends ActionBarActivity {
         typeFacer.setFont(help);
 
         //Testing creating files
-        String filename = "ViralFlyer";
-        String string = "Hello world!";
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputStream.write(string.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        help.setText(canWriteEx());
     }
 
     public void read(View v){
@@ -49,6 +38,21 @@ public class MainActivity extends ActionBarActivity {
         //go to write activity
         Intent intent = new Intent(this, Writer.class);
         startActivity(intent);
+    }
+
+    private String canWriteEx () {
+
+        String state = Environment.getExternalStorageState();
+
+        if (state.equals (Environment.MEDIA_MOUNTED)) {
+            Log.i("FILES:", "Can write to external directory: "
+                    + this.getExternalFilesDir(null).getAbsolutePath());
+            return "true";
+        } else {
+            Log.i ("FILES:", "Cannot write to external directory: "
+                    + this.getExternalFilesDir (null).getAbsolutePath ());
+            return "false";
+        }
     }
 }
 
