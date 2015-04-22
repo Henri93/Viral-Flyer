@@ -1,10 +1,13 @@
 package viralflyer.henrygarant.com.viralflyer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
+
+import java.io.FileOutputStream;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -21,6 +24,19 @@ public class MainActivity extends ActionBarActivity {
         typeFacer.setFont(write);
         typeFacer.setFont(read);
         typeFacer.setFont(help);
+
+        //Testing creating files
+        String filename = "ViralFlyer";
+        String string = "Hello world!";
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(string.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void read(View v){
