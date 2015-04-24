@@ -24,4 +24,4 @@ Then the solution is simple, **Viral Flyer**!
 
 `To help support Viral Flyer please contact ` henryrgarant@gmail.com
 
-![MainActivity](https://github.com/Henri93/Viral-Flyer/blob/development/Screenshots/MainActivity_6.png)
+![MainActivity](https://github.com/Henri93/Viral-Flyer/blob/development/Screenshots/MainActivity.png)
