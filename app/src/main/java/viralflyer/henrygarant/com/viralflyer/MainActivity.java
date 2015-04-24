@@ -29,7 +29,7 @@ public class MainActivity extends ActionBarActivity {
 
         //Testing creating files
         ExternalStorageManager externalStorageManager = new ExternalStorageManager();
-        String s  = "This is the first line. \n This is the second line.";
+        String s  = "This is the first line. \r\nThis is the second line.";
         externalStorageManager.createFile("Henry", s);
     }
 
