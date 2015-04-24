@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,14 +26,16 @@ public class MainActivity extends ActionBarActivity {
         Button write = (Button)findViewById(R.id.writeButton);
         Button read = (Button)findViewById(R.id.readButton);
         Button help = (Button)findViewById(R.id.helpButton);
+        TextView mainCoverText = (TextView)findViewById(R.id.mainCoverText);
         TypeFacer typeFacer = new TypeFacer("encode_thin.ttf", this);
-        typeFacer.setFont(write);
-        typeFacer.setFont(read);
-        typeFacer.setFont(help);
+        typeFacer.setViewFont(write);
+        typeFacer.setViewFont(read);
+        typeFacer.setViewFont(help);
+        typeFacer.setFont("encode.ttf", this);
+        typeFacer.setViewFont(mainCoverText);
 
         //Testing creating files
         String folder_main = "ViralFlyer";
-
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS), folder_main);
         if (!file.mkdirs()) {
@@ -41,9 +44,7 @@ public class MainActivity extends ActionBarActivity {
 
         help.append("\nExternal file system root: " + file.getAbsolutePath());
 
-
         File textFile = new File( file.getPath(), "ViralFlyer.txt");
-
         try {
             FileOutputStream f = new FileOutputStream(textFile);
             PrintWriter pw = new PrintWriter(f);
@@ -59,7 +60,6 @@ public class MainActivity extends ActionBarActivity {
             e.printStackTrace();
         }
         help.append("\n\nFile written to "+textFile);
-
     }
 
     public void read(View v){

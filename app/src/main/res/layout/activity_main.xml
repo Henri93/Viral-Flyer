@@ -24,7 +24,7 @@
         android:textColor="@color/DefaultStyle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="75dp"
         android:layout_marginBottom="5dp" />
 
     <Button
@@ -59,4 +59,18 @@
         android:layout_centerHorizontal="true"
         android:paddingLeft="75dp"
         android:paddingRight="75dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Viral Flyer"
+        android:id="@+id/mainCoverText"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/DefaultStyle"
+        android:textSize="40sp" />
 </RelativeLayout>

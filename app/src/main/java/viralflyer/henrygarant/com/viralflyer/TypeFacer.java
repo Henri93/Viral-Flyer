@@ -15,11 +15,19 @@ public class TypeFacer{
         font = Typeface.createFromAsset(c.getAssets(), filename);
     }
 
-    public void setFont(Button v) {
+    public void setViewFont(Button v) {
         v.setTypeface(font);
     }
 
-    public void setFont(TextView v) {
+    public void setViewFont(TextView v) {
         v.setTypeface(font);
+    }
+
+    public Typeface getFont() {
+        return font;
+    }
+
+    public void setFont(String font, Context c) {
+        this.font = Typeface.createFromAsset(c.getAssets(), font);
     }
 }
