@@ -24,7 +24,7 @@
         android:textColor="@color/DefaultStyle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="85dp"
         android:layout_marginBottom="5dp" />
 
     <Button
@@ -43,7 +43,7 @@
         android:textColor="@color/DefaultStyle"
         android:layout_below="@id/writeButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp" />
 
     <Button

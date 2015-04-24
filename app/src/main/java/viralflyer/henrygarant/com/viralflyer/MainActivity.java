@@ -31,7 +31,6 @@ public class MainActivity extends ActionBarActivity {
         typeFacer.setViewFont(write);
         typeFacer.setViewFont(read);
         typeFacer.setViewFont(help);
-        typeFacer.setFont("encode.ttf", this);
         typeFacer.setViewFont(mainCoverText);
 
         //Testing creating files
@@ -41,8 +40,6 @@ public class MainActivity extends ActionBarActivity {
         if (!file.mkdirs()) {
             Log.e("EXTERNAL FILES:", "Directory not created");
         }
-
-        help.append("\nExternal file system root: " + file.getAbsolutePath());
 
         File textFile = new File( file.getPath(), "ViralFlyer.txt");
         try {
@@ -59,7 +56,6 @@ public class MainActivity extends ActionBarActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        help.append("\n\nFile written to "+textFile);
     }
 
     public void read(View v){
