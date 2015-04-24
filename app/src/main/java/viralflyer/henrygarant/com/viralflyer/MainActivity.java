@@ -31,32 +31,35 @@ public class MainActivity extends ActionBarActivity {
         typeFacer.setFont(help);
 
         //Testing creating files
-        // Find the root of the external storage.
-        // See http://developer.android.com/guide/topics/data/data-  storage.html#filesExternal
+        String folder_main = "ViralFlyer";
 
-        File root = android.os.Environment.getExternalStorageDirectory();
-        help.setText(root.getAbsolutePath().toString());
-        // See http://stackoverflow.com/questions/3551821/android-write-to-sd-card-folder
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOCUMENTS), folder_main);
+        if (!file.mkdirs()) {
+            Log.e("EXTERNAL FILES:", "Directory not created");
+        }
 
-        File dir = new File (root.getAbsolutePath() + "/download");
-        dir.mkdirs();
-        File file = new File(dir, "myData.txt");
+        help.append("\nExternal file system root: " + file.getAbsolutePath());
+
+
+        File textFile = new File( file.getPath(), "ViralFlyer.txt");
 
         try {
-            FileOutputStream f = new FileOutputStream(file);
+            FileOutputStream f = new FileOutputStream(textFile);
             PrintWriter pw = new PrintWriter(f);
-            pw.println("Hi , How are you");
-            pw.println("Hello");
+            pw.println("This is a file");
             pw.flush();
             pw.close();
             f.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            Log.i("File", "******* File not found. Did you" +
+            Log.i("FILE: ", "******* File not found. Did you" +
                     " add a WRITE_EXTERNAL_STORAGE permission to the   manifest?");
         } catch (IOException e) {
             e.printStackTrace();
         }
+        help.append("\n\nFile written to "+textFile);
+
     }
 
     public void read(View v){
