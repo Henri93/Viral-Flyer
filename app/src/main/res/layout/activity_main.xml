@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Viral Flyer"
+        android:text="Welcome to Viral Flyer!"
         android:id="@+id/mainCoverText"
         android:gravity="center_vertical|center_horizontal"
         android:layout_alignParentTop="true"
@@ -72,5 +72,5 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:textColor="@color/DefaultStyle"
-        android:textSize="40sp" />
+        android:textSize="30sp" />
 </RelativeLayout>
