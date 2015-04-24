@@ -37,8 +37,8 @@ public class Reader extends ActionBarActivity{
         statusText = (TextView)findViewById(R.id.statusText_Reader);
 
         TypeFacer typeFacer = new TypeFacer("encode.ttf", this);
-        typeFacer.setFont(readerText);
-        typeFacer.setFont(statusText);
+        typeFacer.setViewFont(readerText);
+        typeFacer.setViewFont(statusText);
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
