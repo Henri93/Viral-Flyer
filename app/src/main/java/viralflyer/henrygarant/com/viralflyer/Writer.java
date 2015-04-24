@@ -45,9 +45,9 @@ public class Writer extends ActionBarActivity {
         statusText = (TextView) findViewById(R.id.statusText);
 
         TypeFacer typeFacer = new TypeFacer("encode.ttf", this);
-        typeFacer.setFont(messageButton);
-        typeFacer.setFont(messageText);
-        typeFacer.setFont(statusText);
+        typeFacer.setViewFont(messageButton);
+        typeFacer.setViewFont(messageText);
+        typeFacer.setViewFont(statusText);
 
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
