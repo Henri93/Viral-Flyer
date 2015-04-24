@@ -9,12 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 
 public class MainActivity extends ActionBarActivity {
 
@@ -34,28 +28,9 @@ public class MainActivity extends ActionBarActivity {
         typeFacer.setViewFont(mainCoverText);
 
         //Testing creating files
-        String folder_main = "ViralFlyer";
-        File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS), folder_main);
-        if (!file.mkdirs()) {
-            Log.e("EXTERNAL FILES:", "Directory not created");
-        }
-
-        File textFile = new File( file.getPath(), "ViralFlyer.txt");
-        try {
-            FileOutputStream f = new FileOutputStream(textFile);
-            PrintWriter pw = new PrintWriter(f);
-            pw.println("This is a file");
-            pw.flush();
-            pw.close();
-            f.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Log.i("FILE: ", "******* File not found. Did you" +
-                    " add a WRITE_EXTERNAL_STORAGE permission to the   manifest?");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ExternalStorageManager externalStorageManager = new ExternalStorageManager();
+        String s  = "This is the first line. \n This is the second line.";
+        externalStorageManager.createFile("Henry", s);
     }
 
     public void read(View v){
