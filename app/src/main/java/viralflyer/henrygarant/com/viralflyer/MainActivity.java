@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +28,7 @@ public class MainActivity extends ActionBarActivity {
 
         //Testing creating files
         ExternalStorageManager externalStorageManager = new ExternalStorageManager();
-        String s  = "This is the first line. \r\nThis is the second line.";
-        externalStorageManager.createFile("Henry", s);
+        externalStorageManager.createVfFile("Henry", "New Event", "Come to support us.", "4/26/15");
     }
 
     public void read(View v){

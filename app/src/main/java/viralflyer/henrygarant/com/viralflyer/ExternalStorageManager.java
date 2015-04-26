@@ -48,4 +48,22 @@ public class ExternalStorageManager {
             e.printStackTrace();
         }
     }
+
+    public void createVfFile(String fileName, String title, String message, String date){
+        File newFile = new File(getFolderPath(), fileName + ".vf");
+        try {
+            FileOutputStream f = new FileOutputStream(newFile);
+            PrintWriter pw = new PrintWriter(f);
+            pw.write("Title: " + title);
+            pw.println("Message: " + message);
+            pw.write("Date" + date);
+            pw.flush();
+            pw.close();
+            f.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
