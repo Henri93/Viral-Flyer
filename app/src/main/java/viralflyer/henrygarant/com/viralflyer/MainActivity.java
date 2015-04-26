@@ -2,9 +2,7 @@ package viralflyer.henrygarant.com.viralflyer;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,9 +24,6 @@ public class MainActivity extends ActionBarActivity {
         typeFacer.setViewFont(help);
         typeFacer.setViewFont(mainCoverText);
 
-        //Testing creating files
-        ExternalStorageManager externalStorageManager = new ExternalStorageManager();
-        externalStorageManager.createVfFile("Henry", "New Event", "Come to support us.", "4/26/15");
     }
 
     public void read(View v){
@@ -43,19 +38,10 @@ public class MainActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    private String canWriteEx () {
-
-        String state = Environment.getExternalStorageState();
-
-        if (state.equals (Environment.MEDIA_MOUNTED)) {
-            Log.i("FILES:", "Can write to external directory: "
-                    + this.getExternalFilesDir(null).getAbsolutePath());
-            return "true";
-        } else {
-            Log.i ("FILES:", "Cannot write to external directory: "
-                    + this.getExternalFilesDir (null).getAbsolutePath ());
-            return "false";
-        }
+    public void help(View v){
+        //Testing creating files
+        ExternalStorageManager externalStorageManager = new ExternalStorageManager();
+        externalStorageManager.createVfFile("Henry", "New Event", "Come to support us.", "4-20-15");
     }
 }
 

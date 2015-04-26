@@ -58,7 +58,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:paddingLeft="75dp"
-        android:paddingRight="75dp" />
+        android:paddingRight="75dp"
+        android:onClick="help" />
 
     <TextView
         android:layout_width="wrap_content"
