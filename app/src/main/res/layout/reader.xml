@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/DefaultStyle_Background">
+    android:background="@color/DefaultStyle_Background"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Status: Ready"
         android:id="@+id/statusText_Reader"
-        android:layout_gravity="right"
-        android:paddingRight="5dp"
-        android:textColor="@color/DefaultStyle"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:paddingBottom="5dp" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Scan Tag"
-        android:id="@+id/readerText"
-        android:gravity="center_horizontal"
-        android:textColor="@color/DefaultStyle"
-        android:textSize="40sp"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_gravity="right"
+        android:paddingBottom="5dp"
+        android:paddingRight="5dp"
+        android:text="Status: Ready"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/DefaultStyle" />
+
+    <TextView
+        android:id="@+id/readerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:text="Scan Tag"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/DefaultStyle"
+        android:textSize="40sp" />
 
 </RelativeLayout>

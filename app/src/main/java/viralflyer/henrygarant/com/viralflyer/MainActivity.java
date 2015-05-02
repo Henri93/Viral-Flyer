@@ -38,9 +38,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void help(View v){
-        //Testing creating files
-        ExternalStorageManager externalStorageManager = new ExternalStorageManager();
-        externalStorageManager.createVfFile("Henry", "New Event", "Come to support us.", "4-20-15");
+
     }
 }
 

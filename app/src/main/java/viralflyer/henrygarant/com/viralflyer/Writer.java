@@ -32,8 +32,11 @@ public class Writer extends ActionBarActivity {
     private String[][] mNFCTechLists;
     private Tag tag;
     private Button messageButton;
-    private EditText messageText;
+    private EditText titleText;
+    private EditText dateText;
+    private EditText detailsText;
     private TextView statusText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +44,17 @@ public class Writer extends ActionBarActivity {
         setContentView(R.layout.writer);
 
         messageButton = (Button) findViewById(R.id.pushButton);
-        messageText = (EditText) findViewById(R.id.messageText);
+        titleText = (EditText) findViewById(R.id.titleText);
+        dateText = (EditText) findViewById(R.id.dateText);
+        detailsText = (EditText) findViewById(R.id.detailsText);
         statusText = (TextView) findViewById(R.id.statusText);
+
 
         TypeFacer typeFacer = new TypeFacer("encode.ttf", this);
         typeFacer.setViewFont(messageButton);
-        typeFacer.setViewFont(messageText);
+        typeFacer.setViewFont(titleText);
+        typeFacer.setViewFont(dateText);
+        typeFacer.setViewFont(detailsText);
         typeFacer.setViewFont(statusText);
 
 
@@ -86,11 +94,14 @@ public class Writer extends ActionBarActivity {
 
     public void PushMessage(View v) {
         if (mNfcAdapter != null && mNfcAdapter.isEnabled()) {
+            ExternalStorageManager externalStorageManager = new ExternalStorageManager();
+            externalStorageManager.createVfFile(titleText.getText().toString(), titleText.getText().toString(),
+                    detailsText.getText().toString(), dateText.getText().toString());
             try {
                 // create an NDEF message with record of plain text type
                 NdefMessage mNdefMessage = new NdefMessage(
                         new NdefRecord[]{
-                                createNewTextRecord(messageText.getText().toString(), Locale.ENGLISH, true)});
+                                createNewTextRecord(detailsText.getText().toString(), Locale.ENGLISH, true)});
                 Ndef ndef = Ndef.get(tag);
                 ndef.connect();
                 ndef.writeNdefMessage(mNdefMessage);

@@ -10,5 +10,6 @@
     <color name="DefaultStyle">#2ecc71</color>
     <color name="DefaultStyle_Dark">#27ae60</color>
     <color name="DefaultStyle_Background">#ff424340</color>
+    <color name="DefaultStyle_Background_Dark">#ff3A3B38</color>
 
 </resources>
