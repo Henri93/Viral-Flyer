@@ -23,7 +23,6 @@ public class MainActivity extends ActionBarActivity {
         typeFacer.setViewFont(read);
         typeFacer.setViewFont(help);
         typeFacer.setViewFont(mainCoverText);
-
     }
 
     public void read(View v){
